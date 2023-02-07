@@ -1,0 +1,16 @@
+How to Create a Amzon instance EC2 profile ?
+
+https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-iam-instance-profile.html
+
+aws iam create-instance-profile --instance-profile-name datapipeline-ec2-instanceprofile
+{
+    "InstanceProfile": {
+        "Path": "/",
+        "InstanceProfileName": "datapipeline-ec2-instanceprofile",
+        "InstanceProfileId": "AIPAUKYDT5AQJ4C3R4VFG",
+        "Arn": "arn:aws:iam::XXXXXXX52224:instance-profile/datapipeline-ec2-instanceprofile",
+        "CreateDate": "2023-02-07T00:16:17+00:00",
+        "Roles": []
+    }
+}
+aws iam add-role-to-instance-profile --instance-profile-name datapipeline-ec2-instanceprofile --role-name mypipelineroleforec2access
