@@ -1,0 +1,14 @@
+Service role for Amazon EMR
+EMR_DefaultRole 
+IAM role for instance profile
+EMR_EC2_DefaultRole 
+
+ssh -i "opensrc.pem" hadoop@ec2-18-206-190-146.compute-1.amazonaws.com
+
+wget https://repo1.maven.org/maven2/org/apache/parquet/parquet-tools/1.10.1/parquet-tools-1.10.1.jar
+    2  ls -ltr
+    3  java jar parquet-tools-1.10.1.jar
+    4  hadoop jar parquet-tools-1.10.1.jar
+    5  hadoop jar parquet-tools-1.10.1.jar -h
+    
+    hadoop jar parquet-tools-1.10.1.jar meta s3://glue-tst2/filewithrace/HL7_file_with_race_text_sample.single.20230214041632.656744.parquet
