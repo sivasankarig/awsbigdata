@@ -17,3 +17,23 @@ Destination
 	Target
 10.0.0.0/16	local
 0.0.0.0/0	igw-0c649c60ead30dd22
+
+===========================================================
+
+create database department;
+create database employee;
+
+
+CREATE TABLE department.dept
+      (Empid    CHAR(3)           NOT NULL,
+       DEPTNAME  VARCHAR(36)       NOT NULL);
+       
+INSERT INTO department.dept(Empid,DEPTNAME) VALUES (1,"IT");
+INSERT INTO department.dept(Empid,DEPTNAME) VALUES (2,"HR");
+
+
+CREATE TABLE employee.emp
+      (Empid    CHAR(3)           NOT NULL,
+       empname  VARCHAR(36)       NOT NULL);
+
+INSERT INTO employee.emp(Empid,empname) VALUES (1,"SIV");
