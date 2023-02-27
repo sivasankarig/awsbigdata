@@ -1,0 +1,57 @@
+aws glue put-resource-policy --policy-in-json '{
+  "Version" : "2012-10-17",
+  "Statement" : [ {
+    "Sid" : "Cataloguers",
+    "Effect" : "Allow",
+    "Principal" : {
+      "AWS" : ["arn:aws:iam::209:root","arn:aws:iam::<consumeraccid>2224:root"]
+    },
+    "Action" : "glue:*",
+    "Resource" : [ "arn:aws:glue:us-east-1:<resrc_owner_accid>:catalog", "arn:aws:glue:us-east-1:<resrc_owner_accid>:database/*", "arn:aws:glue:us-east-1:<resrc_owner_accid>:table/*/*" ]
+  } ]
+}'  --profile acc6975 --enable-hybrid 'TRUE'
+
+From <consumeraccid>2224: aws glue get-databases --catalog-id <resrc_owner_accid> --query 'DatabaseList[*].Name'
+
+import boto3
+sts_client = boto3.client('sts')
+credentials=assumed_role_object['Credentials']
+assumed_role_object=sts_client.assume_role(
+    RoleArn="arn:aws:iam::xxxxxxxxx29:role/RoleV2",
+    RoleSessionName="AssumeRoleSession1"
+)
+new_session = boto3.Session(aws_access_key_id=assumed_role_object['Credentials']['AccessKeyId'],
+                      aws_secret_access_key=assumed_role_object['Credentials']['SecretAccessKey'],
+                      aws_session_token=assumed_role_object['Credentials']['SessionToken'])
+
+
+glue = new_session.client('glue')
+paginator = glue.get_paginator('get_tables')
+page_iterator = paginator.paginate(
+    DatabaseName='api5afs_dev',
+    CatalogId=''
+)
+
+for page in page_iterator:
+    print(page['TableList'])
+    
+=============================================================    
+import boto3
+sts_client = boto3.client('sts')
+
+# assumed_role_object=sts_client.assume_role(
+#     RoleArn="arn:aws:iam::297970952224:root",
+#     RoleSessionName="AssumeRoleSession1"
+# )
+new_session = boto3.Session()
+
+
+glue = new_session.client('glue')
+paginator = glue.get_paginator('get_tables')
+page_iterator = paginator.paginate(
+    DatabaseName='firehosedb',
+    CatalogId='697595720409'
+)
+
+for page in page_iterator:
+    print(page['TableList'])
