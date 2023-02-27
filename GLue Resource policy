@@ -55,3 +55,10 @@ page_iterator = paginator.paginate(
 
 for page in page_iterator:
     print(page['TableList'])
+    
+    
+    ----------------------------------------
+    https://boto3.amazonaws.com/v1/documentation/api/latest/guide/paginators.html
+    Some AWS operations return results that are incomplete and require subsequent requests in order to attain the entire result set. The process of sending subsequent requests to continue where a previous request left off is called pagination. For example, the list_objects operation of Amazon S3 returns up to 1000 objects at a time, and you must send subsequent requests with the appropriate Marker in order to retrieve the next page of results.
+
+Paginators are a feature of boto3 that act as an abstraction over the process of iterating over an entire result set of a truncated API operation.
