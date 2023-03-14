@@ -1,0 +1,10 @@
+https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-ssh-tunnel.html
+Launch EC2 in public subnet of same VPC as MWAA env
+ssh -i ~/mykeypair.pem -N -D 8157 ec2-user@ec2-###-##-##-###.compute-1.amazonaws.com
+in Firefox enable proxy
+
+ssh 22 port should be open to EC2 
+
+inbound 443 port should be open mwaa and self referncing rule should be available
+sgr-0f5a11710af995f7a	IPv4	HTTPS	TCP	443	0.0.0.0/0
+	All traffic	All	All	sg-0ec35c91274c01223
