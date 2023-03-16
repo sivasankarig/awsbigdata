@@ -1,0 +1,7 @@
+aws athena create-prepared-statement --statement-name permission_test --work-group primary --query-statement "SELECT * FROM test_table where zip=?"
+[ec2-user@ip-10-0-2-14 ~]$
+[ec2-user@ip-10-0-2-14 ~]$ aws athena  start-query-execution --query-string  'EXECUTE permission_test USING 2012' --query-execution-context "Database"="athena_min"
+
+{
+    "QueryExecutionId": "423220cb-c6ce-4650-b2cf-9465aee9f59f"
+}
