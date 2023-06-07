@@ -1,0 +1,11 @@
+1. use CF to launch spark server in ec2
+https://docs.aws.amazon.com/glue/latest/dg/monitor-spark-ui-history.html
+
+2.ssh -i opensrc.pem -N -D 8157 ec2-user@ec2-35-153-130-155.compute-1.amazonaws.com
+3.aws s3 cp . s3://aws-glue-assets-297970952224-us-east-1/sparkHistoryLogs/ --recursive
+
+or upload from s3 GUI
+
+4. from CF stack -> outputs -> SparkUiPublicUrl	-> open link https://ec2-3-94-76-122.compute-1.amazonaws.com:18080
+
+5. Firefox turn on proxy server. port : 8157 IP/DNS name: localhost
