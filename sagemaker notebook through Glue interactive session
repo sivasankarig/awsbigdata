@@ -1,3 +1,5 @@
+https://docs.aws.amazon.com/glue/latest/dg/interactive-sessions-sagemaker.html 
+
 Exception encountered while creating session: An error occurred (AccessDeniedException) 
 when calling the CreateSession operation: User: arn:aws:sts::297970952224:assumed-role/AWSGlueServiceSageMakerNotebookRole-glue_role/SageMaker 
 is not authorized to perform: iam:PassRole on resource: arn:aws:iam::297970952224:role/service-role/AWSGlueServiceSageMakerNotebookRole-glue_role because no identity-based policy allows the iam:PassRole action 
@@ -5,3 +7,17 @@ is not authorized to perform: iam:PassRole on resource: arn:aws:iam::29797095222
 %iam_role arn:aws:iam::297970952224:role/glue_role
 
 Attach passrole to AWSGlueServiceSageMakerNotebookRole-glue_role.
+
+import boto3
+boto3.client('sts').get_caller_identity()
+​
+{'UserId': 'AROAUKYDT5AQFJ7L2MKGF:SageMaker',
+ 'Account': '297970952224',
+ 'Arn': 'arn:aws:sts::297970952224:assumed-role/AWSGlueServiceSageMakerNotebookRole-glue_role/SageMaker',
+ 'ResponseMetadata': {'RequestId': 'b7422d79-82ec-4b67-aeac-e73257f3602a',
+  'HTTPStatusCode': 200,
+  'HTTPHeaders': {'x-amzn-requestid': 'b7422d79-82ec-4b67-aeac-e73257f3602a',
+   'content-type': 'text/xml',
+   'content-length': '470',
+   'date': 'Thu, 06 Jul 2023 03:17:43 GMT'},
+  'RetryAttempts': 0}}
