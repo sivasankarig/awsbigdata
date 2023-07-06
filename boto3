@@ -1,0 +1,13 @@
+Select python session
+
+>>> import boto3
+>>> boto3.client('sts').get_caller_identity()
+//to get get account and user role details
+>>> boto3.client('sts').get_caller_identity().get('Account')
+'012345678901'
+
+//read s3 file
+import boto3
+s3 = boto3.resource('s3')
+obj = s3.Object('sankari-test', 'testdata/emp/employee.csv')
+obj.get()['Body'].read().decode('utf-8') 
