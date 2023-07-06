@@ -21,3 +21,9 @@ boto3.client('sts').get_caller_identity()
    'content-length': '470',
    'date': 'Thu, 06 Jul 2023 03:17:43 GMT'},
   'RetryAttempts': 0}}
+
+
+Curl commands to get AWS account instances - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
+
+Eg: TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+&& curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/instance-id
