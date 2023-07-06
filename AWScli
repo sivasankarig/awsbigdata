@@ -1,0 +1,9 @@
+https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+
+
+aws configure
+--> aws access key and secret key and region
+aws iam list-users
+
+aws s3 <commands>
+aws iam <command>
