@@ -3,6 +3,8 @@ Launch EC2 in public subnet (where igw is attached to RT)
 Local forward tunneling:    ssh -L 3306:database-1.cn4cd4nggd0u.us-east-1.rds.amazonaws.com:3306 -i myec2key.pem ec2-user@44.201.8.152
 reason for above, the ssh server is installed in local and anything local is forwarded to 3306 port and then host
 From dbeaver: jdbc url is : jdbc:mysql:aws://localhost
+
+Edit EC2 SG to accept the port 3306 or any in inbound rules custom TCp
 Add S3 VPC endpoint and NAT gateway if connection fails: 
 https://aws.amazon.com/premiumsupport/knowledge-center/glue-s3-endpoint-validation-failed/#:~:text=You%20get%20this%20error%20when,a%20NAT%20gateway%20set%20up.
 Look for cloudwatch logs enabled to the role.
