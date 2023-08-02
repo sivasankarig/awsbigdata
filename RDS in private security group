@@ -39,3 +39,12 @@ CREATE TABLE employee.emp
        empname  VARCHAR(36)       NOT NULL);
 
 INSERT INTO employee.emp(Empid,empname) VALUES (1,"SIV");
+
+======================
+CREATE TABLE postgres.public.dept
+      (eid    CHAR(3)           NOT NULL,
+       deptname  VARCHAR(36)       NOT NULL);
+       
+      
+INSERT INTO postgres.public.dept(eid,deptname) VALUES (1,'IT');
+INSERT INTO postgres.public.dept(eid,deptname) VALUES (2,'HR');
