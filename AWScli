@@ -7,3 +7,5 @@ aws iam list-users
 
 aws s3 <commands>
 aws iam <command>
+
+cat ~/.aws/credentials
