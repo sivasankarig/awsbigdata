@@ -9,3 +9,12 @@ aws s3 <commands>
 aws iam <command>
 
 cat ~/.aws/credentials
+
+aws s3 ls s3://sankari-test/input/trial/  --profile athenauser
+aws s3api get-object --bucket sankari-test --key input/trial test --profile athenauser
+
+aws configure --profile athenauser
+AWS Access Key ID [****************XOFH]:
+AWS Secret Access Key [****************mso9]:
+Default region name [us-east-1]:
+Default output format [None]:
