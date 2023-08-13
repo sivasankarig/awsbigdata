@@ -1,0 +1,47 @@
+
+Updating-table-schema
+----------------------------
+additionalOptions = {
+    "enableUpdateCatalog": True, 
+    "updateBehavior": "UPDATE_IN_DATABASE"}
+additionalOptions["partitionKeys"] = ["partition_key0", "partition_key1"]
+
+sink = glueContext.write_dynamic_frame_from_catalog(frame=last_transform, database="<dst_db_name>",
+    table_name="<dst_tbl_name>", transformation_ctx="write_sink",
+    additional_options=additionalOptions)
+job.commit()
+
+Partitioning-Using-DynamicFrameWriter
+----------------------------
+glue_context.write_dynamic_frame.from_options(
+    frame = output_dyf,
+    connection_type = "s3",    
+    connection_options = {"path": "$outpath", "partitionKeys": ["year"]},
+    format = "parquet")
+
+# Output
+s3://$outpath/year=2021/file.parquet
+s3://$outpath/year=2022/file.parquet
+s3://$outpath/year=2023/file.parquet
+s3://$outpath/year=2024/file.parquet
+
+Adding New partitions
+------------------
+additionalOptions = {"enableUpdateCatalog": True}
+additionalOptions["partitionKeys"] = ["partition_key0", "partition_key1"]
+
+
+sink = glueContext.write_dynamic_frame_from_catalog(frame=last_transform, database="<target_db_name>",
+                                                    table_name="<target_table_name>", transformation_ctx="write_sink",
+                                                    additional_options=additionalOptions)
+For new table new path - get sink
+------------------
+sink = glueContext.getSink(
+    connection_type="s3", 
+    path="s3://path/to/data",
+    enableUpdateCatalog=True,
+    partitionKeys=["partition_key0", "partition_key1"])
+sink.setFormat("json")
+sink.setCatalogInfo(catalogDatabase="<target_db_name>", catalogTableName="<target_table_name>")
+sink.writeFrame(last_transform)
+
