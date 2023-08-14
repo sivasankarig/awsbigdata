@@ -1,0 +1,6 @@
+hom install_bin/localrunner_mwaa/aws-mwaa-local-runner
+
+https://raw.githubusercontent.com/apache/airflow/constraints-2.6.3/constraints-3.10.txt
+
+
+https://github.com/aws/aws-mwaa-local-runner
