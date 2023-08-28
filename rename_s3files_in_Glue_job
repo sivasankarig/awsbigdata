@@ -1,4 +1,5 @@
 https://guide.aws.dev/articles/ARUOkRay2bTFmxDRbRFlqSGA/to-rename-the-target-file-in-s3-after-writing-the-data-to-s3-using-a-glue-job
+https://repost.aws/questions/QUcAzX1YTqTuSrNDGmiF3gfw/what-is-the-ideal-way-to-copy-objects-from-one-s3-to-another-in-a-different-region-via-boto3
 
     import sys
     from awsglue.transforms import * 
