@@ -1,0 +1,9 @@
+
+
+==> Subnet -> actions -> settings -> Auto-assign IP settingsInfo
+Enable the auto-assign IP settings to automatically request a public IPv4 or IPv6 address for a new network interface in this subnet.
+Enable auto-assign public IPv4 addressInfo
+
+==> VPC -> DNS settings
+Enable DNS resolutionInfo
+Enable DNS hostnamesInfo
