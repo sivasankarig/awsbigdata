@@ -1,0 +1,32 @@
+https://aws.amazon.com/blogs/big-data/develop-and-test-aws-glue-version-3-0-jobs-locally-using-a-docker-container/
+https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-libraries.html#local-dev-restrictions
+
+$ WORKSPACE_LOCATION=/Users/gsankari/install_bin/glue_workspace
+$ SCRIPT_FILE_NAME=sample.py
+$ mkdir -p ${WORKSPACE_LOCATION}/src
+$ vim ${WORKSPACE_LOCATION}/src/${SCRIPT_FILE_NAME}
+
+$ docker run -it -v ~/.aws:/home/glue_user/.aws -v $WORKSPACE_LOCATION:/Users/gsankari/install_bin/glue_workspace -e AWS_PROFILE=default -e AWS_REGION=us-east-1 -e DISABLE_SSL=true --rm -p 4040:4040 -p 18080:18080 --name glue_spark_submit amazon/aws-glue-libs:glue_libs_4.0.0_image_01 spark-submit /Users/gsankari/install_bin/glue_workspace/src/$SCRIPT_FILE_NAME
+
+
+SCRIPT_FILE_NAME_TEST=sampletest.py
+vim ${WORKSPACE_LOCATION}/src/${SCRIPT_FILE_NAME_TEST}
+docker run -it -v ~/.aws:/home/glue_user/.aws -v $WORKSPACE_LOCATION:/Users/gsankari/install_bin/glue_workspace -v $EXTRA_PYTHON_PACKAGE_LOCATION:/Users/gsankari/install_bin/glue_workspace/lib/ -e AWS_PROFILE=$PROFILE_NAME  -e AWS_REGION=us-east-1 -e AWS_PROFILE=default -e DISABLE_SSL=true --rm -p 4040:4040 -p 18080:18080 --name glue_spark_submit amazon/aws-glue-libs:glue_libs_4.0.0_image_01 spark-submit /Users/gsankari/install_bin/glue_workspace/src/$SCRIPT_FILE_NAME_TEST
+
+SCRIPT_FILE_NAME_FEATURE=
+
+aws configure set region us-east-1 --profile default
+
+EXTRA_PYTHON_PACKAGE_LOCATION=/Users/gsankari/install_bin/glue_workspace/lib/
+
+
+pip3 install sagemaker-feature-store-pyspark -t /Users/gsankari/install_bin/glue_workspace/lib/
+
+EXTRA_PYTHON_PACKAGE_LOCATION=/Users/gsankari/install_bin/glue_workspace/lib/
+
+docker run -it -v ~/.aws:/home/glue_user/.aws -v $WORKSPACE_LOCATION:/Users/gsankari/install_bin/glue_workspace -v $EXTRA_PYTHON_PACKAGE_LOCATION:/home/glue_user/workspace/extra_python_path/  -e PYTHONPATH=$PYTHONPATH:/home/glue_user/workspace/extra_python_path/ -e AWS_PROFILE=$PROFILE_NAME  -e AWS_REGION=us-east-1 -e AWS_PROFILE=default -e DISABLE_SSL=true --rm -p 4040:4040 -p 18080:18080 --name glue_spark_submit amazon/aws-glue-libs:glue_libs_4.0.0_image_01 spark-submit /Users/gsankari/install_bin/glue_workspace/src/test.py
+
+
+
+run -it -v ~/.aws:/home/glue_user/.aws -v $WORKSPACE_LOCATION:/Users/gsankari/install_bin/glue_workspace -v $EXTRA_PYTHON_PACKAGE_LOCATION:/home/glue_user/workspace/extra_python_path/  -e PYTHONPATH=$PYTHONPATH:/home/glue_user/workspace/extra_python_path/ -e AWS_PROFILE=$PROFILE_NAME  -e AWS_REGION=us-east-1 -e AWS_PROFILE=default -e DISABLE_SSL=true --rm -p 4040:4040 -p 18080:18080 --name glue_spark_submit amazon/aws-glue-libs:glue_libs_4.0.0_image_01 spark-submit /Users/gsankari/install_bin/glue_workspace/src/test.py
+
