@@ -1,0 +1,45 @@
+arn:aws:kafka:us-east-1:297970952224:cluster/demokafka/8b32454a-4be4-4c0c-95d5-68dcbc7f995b-s3
+
+ssh -i opensrc.pem ec2-user@ec2-54-211-150-76.compute-1.amazonaws.com
+
+
+wget https://archive.apache.org/dist/kafka/3.5.1/kafka_2.13-3.5.1.tgz
+
+
+
+security.protocol=SASL_SSL
+sasl.mechanism=AWS_MSK_IAM
+sasl.jaas.config=software.amazon.msk.auth.iam.IAMLoginModule required;
+sasl.client.callback.handler.class=software.amazon.msk.auth.iam.IAMClientCallbackHandler
+
+export BS=boot-gwpyjwzf.c3.kafka-serverless.us-east-1.amazonaws.com:9098
+
+
+bin/kafka-topics.sh --bootstrap-server $BS --command-config client.properties --create --topic msk-serverless-tutorial --partitions 6
+
+bin/kafka-console-producer.sh --broker-list $BS --producer.config client.properties --topic msk-serverless-tutorial
+
+bin/kafka-console-consumer.sh --bootstrap-server $BS --consumer.config client.properties --topic msk-serverless-tutorial --from-beginning
+
+
+
+
+kafka_options =
+    { "connectionName": "ConfluentKafka", 
+      "topicName": "msk-serverless-tutorial", 
+      "startingOffsets": "earliest", 
+      "inferSchema": "true", 
+      "classification": "grok" ,
+      "grokPattern":"%{GREEDYDATA:message}"
+    }
+data_frame_datasource0 = glueContext.create_data_frame.from_options(connection_type="kafka", connection_options=kafka_options)
+options={
+	"pollingTimeInMs":"20000",
+	"windowSize":"5 seconds"
+}
+
+sample_df=glueContext.getSampleStreamingDynamicFrame(data_frame_datasource0,options,None)
+
+sample_df.toDF().show(10,False)
+
+print("streamdata")
