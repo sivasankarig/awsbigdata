@@ -43,3 +43,366 @@ sample_df=glueContext.getSampleStreamingDynamicFrame(data_frame_datasource0,opti
 sample_df.toDF().show(10,False)
 
 print("streamdata")
+===========================================
+Admin:~/environment $ cd cd /home/ec2-user/kafka
+bash: cd: cd: No such file or directory
+Admin:~/environment $ ls
+README.md
+Admin:~/environment $ cd /tmp/kafka
+bash: cd: /tmp/kafka: No such file or directory
+Admin:~/environment $ ls
+opensrc.pem  README.md
+Admin:~/environment $ chmod 600 opensrc.pem
+Admin:~/environment $ eval `ssh-agent`
+Agent pid 15505
+Admin:~/environment $
+Admin:~/environment $ ssh-add -k opensrc.pem
+Identity added: opensrc.pem (opensrc.pem)
+Admin:~/environment $ export MSK_STACK=MSK
+Admin:~/environment $ export ssh_cmd=$(aws cloudformation describe-stacks --stack-name $MSK_STACK --query 'Stacks[0].Outputs[?OutputKey==`SSHKafkaClientEC2Instance`].OutputValue' --output text)
+
+Admin:~/environment $
+Admin:~/environment $ $ssh_cmd
+The authenticity of host 'ip-10-0-1-113.ec2.internal (10.0.1.113)' can't be established.
+ECDSA key fingerprint is SHA256:MD/z67DZ5wAF1M2EaXbDXwwff8N8kFBbOfHEJglDt10.
+ECDSA key fingerprint is MD5:41:fc:27:7f:8f:eb:11:8f:6e:95:78:c7:1f:e3:09:75.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'ip-10-0-1-113.ec2.internal,10.0.1.113' (ECDSA) to the list of known hosts.
+Last login: Wed Oct 11 06:03:30 2023
+   ,     #_
+   ~\_  ####_        Amazon Linux 2
+  ~~  \_#####\
+  ~~     \###|       AL2 End of Life is 2025-06-30.
+  ~~       \#/ ___
+   ~~       V~' '->
+    ~~~         /    A newer version of Amazon Linux is available!
+      ~~._.   _/
+         _/ _/       Amazon Linux 2023, GA and supported until 2028-03-15.
+       _/m/'           https://aws.amazon.com/linux/amazon-linux-2023/
+
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 ~$ ls
+aws  awscliv2.zip  confluent  get-pip.py  kafka  kafka270
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 ~$ cd /tmp/kafka
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$ export MSK_STACK=MSK
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$ . ./setup_env $MSK_STACK
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$ cd /home/ec2-user/kafka                                                                                 c
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$ bin/kafka-topics.sh --create --zookeeper $zoo --replication-factor 3 --partitions 3 --topic ExampleTopic
+Created topic ExampleTopic.
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$ cd /tmp/kafka
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$ export MSK_STACK=MSK
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$ sed -i -e "s/BOOTSTRAP_SERVERS_CONFIG=/BOOTSTRAP_SERVERS_CONFIG=$brokers/g" producer.properties_msk
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$ export region=$(curl http://169.254.169.254/latest/meta-data/placement/region)
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100     9  100     9    0     0   5832      0 --:--:-- --:--:-- --:--:--  9000
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$ export schema_compatibility=FULL_ALL
+k -nt 8 -rf 10800 -nle -gsr -gsrr $region -gar -gcs $schema_compatibility > /tmp/producer.log 2>&1 &jar -t ExampleTopic -pfp /tmp/kafka/producer.properties_ms
+[1] 29775
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$ tail -f /tmp/producer.log
+[2023-10-11 08:30:21,571] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 7973
+
+[2023-10-11 08:30:21,572] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 797
+
+[2023-10-11 08:30:23,572] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 12773
+
+[2023-10-11 08:30:23,572] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 10241
+
+[2023-10-11 08:30:23,573] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 853
+
+[2023-10-11 08:30:25,573] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 14773
+
+[2023-10-11 08:30:25,573] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 12072
+
+[2023-10-11 08:30:25,573] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 862
+
+[2023-10-11 08:30:27,573] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 16774
+
+[2023-10-11 08:30:27,574] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 14047
+
+[2023-10-11 08:30:27,574] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 877
+
+[2023-10-11 08:30:29,574] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 18775
+
+[2023-10-11 08:30:29,574] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 15900
+
+[2023-10-11 08:30:29,574] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 883
+
+[2023-10-11 08:30:31,574] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 20775
+
+[2023-10-11 08:30:31,575] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 18323
+
+[2023-10-11 08:30:31,575] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 916
+
+[2023-10-11 08:30:33,575] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 22776
+
+[2023-10-11 08:30:33,575] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 20031
+
+[2023-10-11 08:30:33,575] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 910
+
+[2023-10-11 08:30:35,576] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 24776
+
+[2023-10-11 08:30:35,576] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 21846
+
+[2023-10-11 08:30:35,576] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 910
+
+[2023-10-11 08:30:37,576] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 26777
+
+[2023-10-11 08:30:37,576] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 23879
+
+[2023-10-11 08:30:37,577] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 918
+
+[2023-10-11 08:30:39,577] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 28777
+
+[2023-10-11 08:30:39,577] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 25860
+
+[2023-10-11 08:30:39,577] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 923
+
+[2023-10-11 08:30:41,577] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 30778
+
+[2023-10-11 08:30:41,577] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 27462
+
+[2023-10-11 08:30:41,577] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 915
+
+[2023-10-11 08:30:43,578] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 32778
+
+[2023-10-11 08:30:43,578] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 29500
+
+[2023-10-11 08:30:43,578] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 921
+
+[2023-10-11 08:30:45,578] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 34779
+
+[2023-10-11 08:30:45,579] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 31825
+
+[2023-10-11 08:30:45,579] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 936
+
+[2023-10-11 08:30:47,579] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 36779
+
+[2023-10-11 08:30:47,579] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 33766
+
+[2023-10-11 08:30:47,579] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 937
+
+[2023-10-11 08:30:49,579] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 38780
+
+[2023-10-11 08:30:49,580] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 35598
+
+[2023-10-11 08:30:49,580] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 936
+
+[2023-10-11 08:30:51,580] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 40781
+
+[2023-10-11 08:30:51,580] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 37570
+
+[2023-10-11 08:30:51,580] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 939
+
+[2023-10-11 08:30:53,580] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 42781
+
+[2023-10-11 08:30:53,581] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 39311
+
+[2023-10-11 08:30:53,581] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 935
+
+[2023-10-11 08:30:55,581] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 44782
+
+[2023-10-11 08:30:55,581] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 41297
+
+[2023-10-11 08:30:55,581] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 938
+
+[2023-10-11 08:30:57,582] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 46782
+
+[2023-10-11 08:30:57,582] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 43413
+
+[2023-10-11 08:30:57,582] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 943
+
+[2023-10-11 08:30:59,582] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 48783
+
+[2023-10-11 08:30:59,582] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 45364
+
+[2023-10-11 08:30:59,583] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 945
+
+[2023-10-11 08:31:01,583] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 50783
+
+[2023-10-11 08:31:01,583] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 47593
+
+[2023-10-11 08:31:01,583] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 951
+
+[2023-10-11 08:31:03,583] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 52784
+
+[2023-10-11 08:31:03,584] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 49806
+
+[2023-10-11 08:31:03,584] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 957
+
+[2023-10-11 08:31:05,584] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 54784
+
+[2023-10-11 08:31:05,584] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 51535
+
+[2023-10-11 08:31:05,584] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 954
+
+[2023-10-11 08:31:07,584] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 56785
+
+[2023-10-11 08:31:07,585] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 53490
+
+[2023-10-11 08:31:07,585] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 955
+
+[2023-10-11 08:31:09,585] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 58786
+
+[2023-10-11 08:31:09,585] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 56361
+
+[2023-10-11 08:31:09,585] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 971
+
+[2023-10-11 08:31:11,585] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 60786
+
+[2023-10-11 08:31:11,586] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 58356
+
+[2023-10-11 08:31:11,586] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 972
+
+[2023-10-11 08:31:13,586] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 62786
+
+[2023-10-11 08:31:13,586] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 60434
+
+[2023-10-11 08:31:13,586] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 974
+
+[2023-10-11 08:31:15,586] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 64787
+
+[2023-10-11 08:31:15,587] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 62629
+
+[2023-10-11 08:31:15,587] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 978
+
+[2023-10-11 08:31:17,587] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 66788
+
+[2023-10-11 08:31:17,587] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 64763
+
+[2023-10-11 08:31:17,587] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 981
+
+[2023-10-11 08:31:19,587] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 68788
+
+[2023-10-11 08:31:19,588] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 66712
+
+[2023-10-11 08:31:19,588] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 981
+
+[2023-10-11 08:31:21,588] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 70789
+
+[2023-10-11 08:31:21,588] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 68616
+
+[2023-10-11 08:31:21,588] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 980
+
+[2023-10-11 08:31:23,588] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 72789
+
+[2023-10-11 08:31:23,589] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 70781
+
+[2023-10-11 08:31:23,589] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 983
+
+[2023-10-11 08:31:25,589] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 74789
+
+[2023-10-11 08:31:25,589] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 73100
+
+[2023-10-11 08:31:25,589] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 987
+
+[2023-10-11 08:31:27,589] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 76790
+
+[2023-10-11 08:31:27,589] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 75275
+
+[2023-10-11 08:31:27,590] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 990
+
+[2023-10-11 08:31:29,590] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 78790
+
+[2023-10-11 08:31:29,590] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 77131
+
+[2023-10-11 08:31:29,590] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 988
+
+[2023-10-11 08:31:31,590] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 80791
+
+[2023-10-11 08:31:31,590] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 78747
+
+[2023-10-11 08:31:31,590] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 984
+
+[2023-10-11 08:31:33,591] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 82791
+
+[2023-10-11 08:31:33,591] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 81167
+
+[2023-10-11 08:31:33,591] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 989
+
+[2023-10-11 08:31:35,591] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 84792
+
+[2023-10-11 08:31:35,591] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 82974
+
+[2023-10-11 08:31:35,591] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 987
+
+[2023-10-11 08:31:37,591] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 86792
+
+[2023-10-11 08:31:37,592] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 84976
+
+[2023-10-11 08:31:37,592] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 988
+
+[2023-10-11 08:31:39,592] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 88793
+
+[2023-10-11 08:31:39,592] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 87125
+
+[2023-10-11 08:31:39,592] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 990
+
+[2023-10-11 08:31:41,592] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 90793
+
+[2023-10-11 08:31:41,593] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 88831
+
+[2023-10-11 08:31:41,593] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 987
+
+[2023-10-11 08:31:43,593] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 92793
+
+[2023-10-11 08:31:43,593] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 91097
+
+[2023-10-11 08:31:43,593] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 990
+
+[2023-10-11 08:31:45,593] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 94794
+
+[2023-10-11 08:31:45,593] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 93021
+
+[2023-10-11 08:31:45,593] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 989
+
+[2023-10-11 08:31:47,594] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 96794
+
+[2023-10-11 08:31:47,594] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 94965
+
+[2023-10-11 08:31:47,594] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 989
+
+[2023-10-11 08:31:49,594] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 98795
+
+[2023-10-11 08:31:49,594] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 97166
+
+[2023-10-11 08:31:49,594] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 991
+
+[2023-10-11 08:31:51,594] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 100795
+
+[2023-10-11 08:31:51,595] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 98747 
+ 
+[2023-10-11 08:31:51,595] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 987 
+ 
+[2023-10-11 08:31:53,595] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 102796 
+ 
+[2023-10-11 08:31:53,595] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 100544 
+ 
+[2023-10-11 08:31:53,595] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 985 
+ 
+[2023-10-11 08:31:55,595] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 104796 
+ 
+[2023-10-11 08:31:55,595] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 102167 
+ 
+[2023-10-11 08:31:55,596] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 982 
+ 
+[2023-10-11 08:31:57,596] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Execution time so far in milliseconds: 106796 
+ 
+[2023-10-11 08:31:57,596] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Total events sent: 104190 
+ 
+[2023-10-11 08:31:57,596] (com.amazonaws.kafka.samples.KafkaClickstreamClient) - INFO Producer rate per sec: 982 
+ 
+^C
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$ kill -9 29775
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$ 
+[1]+  Killed                  java -jar KafkaClickstreamClient-1.0-SNAPSHOT.jar -t ExampleTopic -pfp /tmp/kafka/producer.properties_msk -nt 8 -rf 10800 -nle -gsr -gsrr $region -gar -gcs $schema_compatibility > /tmp/producer.log 2>&1
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$ 
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$ cat /tmp/kafka/producer.properties_msk 
+BOOTSTRAP_SERVERS_CONFIG=b-2.mskclustermsk.d7hd9o.c7.kafka.us-east-1.amazonaws.com:9092,b-1.mskclustermsk.d7hd9o.c7.kafka.us-east-1.amazonaws.com:9092,b-3.mskclustermsk.d7hd9o.c7.kafka.us-east-1.amazonaws.com:9092
+SCHEMA_REGISTRY_URL_CONFIG=
+SSL_KEYSTORE_PASSWORD_CONFIG=password
+SSL_KEY_PASSWORD_CONFIG=password
+KafkaClientEC2Instance [ec2-user@ip-10-0-1-113 kafka$ 
