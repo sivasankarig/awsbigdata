@@ -1,0 +1,40 @@
+https://repost.aws/knowledge-center/glue-lake-formation-cross-account
+
+==> If a Data Catalog resource is shared with your AWS account and your account is not in the same AWS organization as the sharing account, 
+you do not have access to the shared resource until you accept a resource share invitation from AWS Resource Access Manager (AWS RAM).
+
+  below catalog policy -> producer account
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ram.amazonaws.com"
+      },
+      "Action": "glue:ShareResource",
+      "Resource": [
+        "arn:aws:glue:us-east-1:1111222233334444:table/*/*",
+        "arn:aws:glue:us-east-1:1111222233334444:database/*",
+        "arn:aws:glue:us-east-1:1111222233334444:catalog"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::5555666677778888:root"
+      },
+      "Action": "glue:*",
+      "Resource": [
+        "arn:aws:glue:us-east-1:1111222233334444:table/*/*",
+        "arn:aws:glue:us-east-1:1111222233334444:database/*",
+        "arn:aws:glue:us-east-1:1111222233334444:catalog"
+      ]
+    }
+  ]
+}
+
+=========================
+  1. Create RAm share
+  2. Grant Describe on DB to consumer acc. Select and describe on tables to consumer acc
+  3. Accept RAM share. check consumer acc LF
