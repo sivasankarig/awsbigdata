@@ -39,8 +39,8 @@ you do not have access to the shared resource until you accept a resource share 
   2. Grant Describe on DB to consumer acc. Select and describe on tables to consumer acc
   3. Accept RAM share. check consumer acc LF
 
-In consumer account Athena: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied ,
-  ==> Verify policy for "AWSServiceRoleForLakeFormationDataAccess" IAM role associated with Registered Data lake locations. (allow the data path in the policy)  (or)
+In consumer account Athena: com.amazonaws.services.s3.model.AmazonS3Exception: Access Denied , 
+  ==> Verify policy for "AWSServiceRoleForLakeFormationDataAccess" IAM role associated with Registered Data lake locations. s3:ListBucket access (allow the data path in the policy)  (or)
   ==>  Enable Data Catalog Federation checkbox to allow Lake Formation to assume a role and vend temporary credentials to integrated AWS services to access tables under federated databases
 
 
