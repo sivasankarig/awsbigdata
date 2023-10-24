@@ -1,0 +1,35 @@
+import boto3
+
+glue = boto3.client('glue',region_name='us-east-1')
+lf = boto3.client('lakeformation',region_name='us-east-1')
+
+# Change the contents of the 'my_database' variable accordingly:
+my_database = 's3_example'
+tables = glue.get_tables(DatabaseName=my_database)['TableList']
+
+
+def revoke():
+    # Change the contents of the 'my_principal' variable accordingly:
+
+    # IAMAllowedPrincipals
+    my_principal = 'IAM_ALLOWED_PRINCIPALS'
+
+    for t in tables:
+        try:
+            res=lf.revoke_permissions(
+                Principal={'DataLakePrincipalIdentifier': my_principal},
+                Resource={
+                    'Table': {
+                        'DatabaseName': my_database,
+                        'Name':t['Name']
+                        }
+                },
+                Permissions=['ALL']
+            )
+            print(f"'ALL' permissions have been revoked from {my_principal} for the table: {t['Name']}")
+        except  Exception as e:
+            print(e)
+            print(f"The following table does not have 'ALL' permissions granted to {my_principal}: {t['Name']}")
+            continue
+
+revoke()
