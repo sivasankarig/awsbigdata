@@ -1,0 +1,35 @@
+1. Launch Amazon linux 2/3 in aws ec2
+2. Install docker 
+  sudo amazon-linux-extras install docker
+   or 
+   sudo yum install -y docker
+
+ 3. start docker 
+ sudo service docker start
+
+ 4. sudo usermod -a -G docker ec2-user
+
+ 5. login/log out
+
+
+ Install git
+
+ sudo yum install -y git 
+
+ 
+ MWAA
+
+ git clone https://github.com/aws/aws-mwaa-local-runner.git
+ cd aws-mwaa-local-runner
+
+ ## change different verions using 
+
+ git checkout v2.4.3
+
+ ./mwaa-local-env build-image
+
+ ./mwaa-local-env package-requirements
+
+cd plugins 
+
+aws s3 cp plugins.zip s3://mwaacallbackfailuretest/
