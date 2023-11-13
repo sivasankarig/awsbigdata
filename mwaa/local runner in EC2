@@ -34,5 +34,13 @@
  ./mwaa-local-env package-requirements
 
 cd plugins 
-
+attach iam role to EC2
 aws s3 cp plugins.zip s3://mwaacallbackfailuretest/
+
+
+private mode:
+
+ ~ % cd install_bin
+ install_bin % chmod +x airflow_url_creator.sh
+
+install_bin % ./airflow_url_creator.sh
