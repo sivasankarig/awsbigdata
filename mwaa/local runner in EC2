@@ -9,7 +9,10 @@
 
  4. sudo usermod -a -G docker ec2-user
 
- 5. login/log out
+ 5. Test with below command
+     docker info
+
+ 5. terminal login/log out
 
 
  Install git
