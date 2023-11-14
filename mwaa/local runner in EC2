@@ -34,6 +34,7 @@
  ./mwaa-local-env package-requirements
 
 cd plugins 
+zip -r plugins.zip .
 attach iam role to EC2
 aws s3 cp plugins.zip s3://mwaacallbackfailuretest/
 
