@@ -57,3 +57,10 @@ private mode:
  install_bin % chmod +x airflow_url_creator.sh
 
 install_bin % ./airflow_url_creator.sh
+
+SG for ec2
+–	sgr-0d08ed6fa8b7ddc07	8080	TCP	0.0.0.0/0	
+–	sgr-0d7961fe56e435a4c	22	TCP	0.0.0.0/0
+
+UI access
+http://ec2-3-239-23-51.compute-1.amazonaws.com:8080/
