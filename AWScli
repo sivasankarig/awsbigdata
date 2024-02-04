@@ -18,3 +18,21 @@ AWS Access Key ID [****************XOFH]:
 AWS Secret Access Key [****************mso9]:
 Default region name [us-east-1]:
 Default output format [None]:
+
+
+  997  vi .aws/config
+  998  aws sts get-caller-identity\n
+  999  vi .aws/config
+ 1000  aws sts get-caller-identity\n
+ 1001  aws glue  list-jobs
+ 1002  aws glue  list-jobs --debug | more
+ 1003  cat /usr/local/aws-cli/awscli/botocore/data/endpoints.json
+ 1004  vi /usr/local/aws-cli/awscli/botocore/data/endpoints.json
+ 1005  aws cli --version
+ 1006  aws--version
+ 1007  aws n--version
+ 1008  aws --version
+ 1009  curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+ 1010  sudo installer -pkg ./AWSCLIV2.pkg -target /
+ 1011  aws --version
+ 1012  aws glue  list-jobs
