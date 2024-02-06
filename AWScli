@@ -36,3 +36,4 @@ Default output format [None]:
  1010  sudo installer -pkg ./AWSCLIV2.pkg -target /
  1011  aws --version
  1012  aws glue  list-jobs
+endpoint_url = http://localhost:4567
