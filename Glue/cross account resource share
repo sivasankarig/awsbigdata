@@ -1,0 +1,20 @@
+cross account resource share
+
+{
+  "Version" : "2012-10-17",
+  "Statement" : [ {
+    "Effect" : "Allow",
+    "Principal" : {
+      "AWS" : "arn:aws:iam::297970952224:root"
+    },
+    "Action" : "glue:GetDatabase",
+    "Resource" : [ "arn:aws:glue:us-east-1:847205876209:catalog", "arn:aws:glue:us-east-1:847205876209:database/sharedbprimary" ]
+  }, {
+    "Effect" : "Allow",
+    "Principal" : {
+      "Service" : "ram.amazonaws.com"
+    },
+    "Action" : "glue:ShareResource",
+    "Resource" : [ "arn:aws:glue:us-east-1:847205876209:table/sharedbprimary/*", "arn:aws:glue:us-east-1:847205876209:database/sharedbprimary", "arn:aws:glue:us-east-1:847205876209:catalog" ]
+  } ]
+}
