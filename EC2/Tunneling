@@ -1,0 +1,3 @@
+ssh -i sydpem.pem -N -D 8157 ec2-user@ec2-3-26-0-105.ap-southeast-2.compute.amazonaws.com
+
+gsankari@3c063040b7a3 pemfile % ssh -i "sydpem.pem" ec2-user@ec2-3-26-0-105.ap-southeast-2.compute.amazonaws.com
