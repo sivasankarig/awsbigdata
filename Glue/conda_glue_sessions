@@ -1,0 +1,44 @@
+conda create -n "gluenotebook" python=3.10 ipython
+
+source ~/miniconda/etc/profile.d/conda.sh
+
+
+====================
+
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O ~/miniconda.sh
+bash ~/miniconda.sh -b -p $HOME/miniconda
+conda create -n "gluenotebook" python=3.10 ipython
+ ls
+ cd miniconda
+ ls
+ cd bin
+ ls
+ pwd
+ cd
+ vi .zshrc
+
+
+
+source ~/miniconda/etc/profile.d/conda.sh
+conda activate gluenotebook
+pip3 install --upgrade jupyter boto3 aws-glue-sessions         \n
+install-glue-kernels
+jupyter notebook\n
+mkdir notebook
+cd notebook
+jupyter notebook\n
+(gluenotebook) gsankari@3c063040b7a3 notebook %
+
+
+
+gsankari@3c063040b7a3 notebook % cd
+gsankari@3c063040b7a3 ~ % cd -
+~/notebook
+gsankari@3c063040b7a3 notebook % pwd
+/Users/gsankari/notebook
+
+
+
+vi .zshrc. ==> add conda path to bin
+
+export PATH=$PATH:/Users/gsankari/install_bin/gradle-7.6/bin:$JAVA_HOME/bin:/Users/gsankari/install_bin/sbt/bin/:/Users/gsankari/install_bin/apache-maven-3.9.6/bin/:/Users/gsankari/miniconda/bin/
