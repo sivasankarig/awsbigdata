@@ -1,0 +1,33 @@
+gsankari@3c063040b7a3 glue % ls
+gsankari@3c063040b7a3 glue % gradle init --type java-library
+
+Starting a Gradle Daemon (subsequent builds will be faster)
+
+Select build script DSL:
+  1: Groovy
+  2: Kotlin
+Enter selection (default: Groovy) [1..2] 1
+
+Generate build using new APIs and behavior (some features may change in the next minor release)? (default: no) [yes, no]
+Select test framework:
+  1: JUnit 4
+  2: TestNG
+  3: Spock
+  4: JUnit Jupiter
+Enter selection (default: JUnit Jupiter) [1..4]
+
+Project name (default: glue):
+Source package (default: glue):
+
+> Task :init
+Get more help with your project: https://docs.gradle.org/7.6/samples/sample_building_java_libraries.html
+
+BUILD SUCCESSFUL in 28s
+2 actionable tasks: 2 executed
+gsankari@3c063040b7a3 glue % pwd
+/Users/gsankari/projects/glue
+
+https://stackoverflow.com/questions/14017364/how-to-create-java-gradle-project
+
+gradle init --type java-library
+In IDE, under lib -> build -> main -> java -> glue folder -> create a java class
